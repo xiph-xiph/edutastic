@@ -1,10 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --font-comic: 'Comic Neue', cursive;
+  --font-comic: "Comic Neue", cursive;
+  --color-primary-green: #22c55e;
+  --color-background: #d2f2ff;
+  --color-card-bg: #f5f5f5;
+  --color-yellow-border: #ffed48;
+  --color-blue-border: #4245ff;
+  --color-purple-bg: #c163d4;
+  --color-purple-border: #7a1c99;
+  --color-yellow-bg: #fff069;
+  --color-yellow-dark: #e8d100;
+  --color-green-dark: #15803d;
 }
 
 .title-shadow {
-  filter: drop-shadow(3px 3px 0 var(--color-green-700)) 
-          drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(3px 3px 0 var(--color-green-dark))
+    drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.page-container {
+  @apply bg-background min-h-screen flex flex-col items-center gap-10 pt-8;
 }
