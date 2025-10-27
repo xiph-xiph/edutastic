@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --font-comic: 'Comic Neue', cursive;
+}
+
+.title-shadow {
+  filter: drop-shadow(3px 3px 0 var(--color-green-700)) 
+          drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+}
