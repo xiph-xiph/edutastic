@@ -1,23 +1,77 @@
+import { useState } from "react";
 import Card from "../components/Card";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import DonkeyBridge from "../components/DonkeyBridge";
+import { getDefaultCountries, sleep } from "../utils";
 
 const Topo = () => {
-  return (
-    <div className="page-container">
-      <header className="flex flex-col items-center gap-4 w-full px-4">
-        <h1 className="text-6xl font-comic font-bold text-primary-green title-shadow">
-          Edutastic
-        </h1>
-        <p className="font-comic font-bold text-2xl">topografie</p>
-      </header>
+  const countries = getDefaultCountries();
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [donkeyBridgeIsShown, setDonkeyBridgeIsShown] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [points, setPoints] = useState(0);
 
+  const currentCountry = countries[currentQuestion];
+
+  const handleCorrect = async () => {
+    setIsFlipped(false);
+    await sleep(290);
+    setDonkeyBridgeIsShown(false);
+    setCurrentQuestion(currentQuestion + 1);
+    setPoints(points + 1);
+  };
+
+  const handleIncorrect = async () => {
+    setIsFlipped(false);
+    await sleep(290);
+    setDonkeyBridgeIsShown(false);
+    setCurrentQuestion(currentQuestion + 1);
+  };
+
+  return (
+    <>
+      <Header subtext="topografie" />
       <section className="flex justify-between max-w-[370px] w-full">
-        <h2 className="font-comic font-bold text-xl">Vraag 1/10</h2>
-        <p className="font-comic font-bold text-xl">Punten: 0</p>
+        <h2 className="font-comic font-bold text-xl">
+          Vraag {currentQuestion + 1}/{countries.length}
+        </h2>
+        <p className="font-comic font-bold text-xl">Punten: {points}</p>
       </section>
-      <main>
-        <Card />
+      <main className="flex flex-col items-center gap-8">
+        <div className="flex gap-4">
+          <Card isFlipped={isFlipped} country={currentCountry} />
+          {donkeyBridgeIsShown && (
+            <DonkeyBridge isFlipped={isFlipped} country={currentCountry} />
+          )}
+        </div>
+
+        <Button
+          label="Ezelsbruggetje"
+          onClick={() => setDonkeyBridgeIsShown(true)}
+          color="purple"
+          invisible={donkeyBridgeIsShown}
+        />
+
+        {!isFlipped ? (
+          <Button
+            label="Draai om"
+            onClick={() => setIsFlipped(true)}
+            color="yellow"
+          />
+        ) : (
+          <>
+            <p className="font-comic font-bold text-3xl">
+              Had je het goed of fout?
+            </p>
+            <div className="flex gap-10">
+              <Button color="green" label="Goed" onClick={handleCorrect} />
+              <Button color="red" label="Fout" onClick={handleIncorrect} />
+            </div>
+          </>
+        )}
       </main>
-    </div>
+    </>
   );
 };
 

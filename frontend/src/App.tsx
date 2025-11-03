@@ -4,10 +4,12 @@ import Topo from "./pages/Topo";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" Component={Home} />
-      <Route path="/topo" Component={Topo} />
-    </Routes>
+    <div className="page-container">
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/topo" Component={Topo} />
+      </Routes>
+    </div>
   );
 };
 

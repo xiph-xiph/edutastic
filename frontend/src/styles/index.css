@@ -12,6 +12,10 @@
   --color-yellow-bg: #fff069;
   --color-yellow-dark: #e8d100;
   --color-green-dark: #15803d;
+  --color-green-bg: #87ff69;
+  --color-green-border: #2ee800;
+  --color-red-bg: #ff6969;
+  --color-red-border: #e80000;
 }
 
 .title-shadow {
