@@ -2,10 +2,11 @@ import type { Country } from "../types";
 
 interface CardProps {
   isFlipped: boolean;
-  country: Country;
+  countryFront: Country;
+  countryBack: Country;
 }
 
-const DonkeyBridge = ({ isFlipped, country }: CardProps) => {
+const DonkeyBridge = ({ isFlipped, countryFront, countryBack }: CardProps) => {
   return (
     <div className="w-[350px] h-[555px] perspective-[2000px]">
       <div
@@ -17,7 +18,7 @@ const DonkeyBridge = ({ isFlipped, country }: CardProps) => {
           <p className="font-comic font-bold text-3xl">Ezelsbruggetje</p>
           <div className="mx-auto rounded-2xl overflow-hidden w-[230px] shrink-0">
             <img
-              src={`/images/${country.name}_eb.png`}
+              src={`/images/${countryFront.name}_eb.png`}
               className="w-full h-auto object-contain block"
             />
           </div>
@@ -26,7 +27,7 @@ const DonkeyBridge = ({ isFlipped, country }: CardProps) => {
           <p className="font-comic font-bold text-3xl">Ezelsbruggetje</p>
           <div className="mx-auto rounded-2xl overflow-hidden w-[230px] shrink-0">
             <img
-              src={`/images/${country.name}_eb.png`}
+              src={`/images/${countryBack.name}_eb.png`}
               className="w-full h-auto object-contain block"
             />
           </div>
@@ -35,12 +36,12 @@ const DonkeyBridge = ({ isFlipped, country }: CardProps) => {
           <p className="font-comic font-bold text-3xl">Ezelsbruggetje</p>
           <div className="mx-auto rounded-2xl overflow-hidden h-[300px] shrink-0">
             <img
-              src={`/images/${country.name}_eb.png`}
+              src={`/images/${countryBack.name}_eb.png`}
               className="w-full h-auto object-contain block"
             />
           </div>
           <p className="font-comic font-bold text-2xl">
-            {country.donkeyBridgeDescription}
+            {countryBack.donkeyBridgeDescription}
           </p>
         </div>
       </div>
