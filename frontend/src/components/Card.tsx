@@ -1,5 +1,6 @@
 import type { Country } from "../types";
 import { capitalize } from "../utils";
+import { motion } from "motion/react";
 
 interface CardProps {
   isFlipped: boolean;
@@ -9,11 +10,14 @@ interface CardProps {
 
 const Card = ({ isFlipped, countryFront, countryBack }: CardProps) => {
   return (
-    <div className="w-[500px] h-[555px] perspective-[2000px]">
-      <div
-        className={`w-full h-full transition-transform duration-700 transform-3d ${
-          isFlipped ? "transform-[rotateY(180deg)]" : ""
-        }`}
+    <motion.div
+      layout
+      className="w-[500px] h-[555px] perspective-[2000px] z-10"
+    >
+      <motion.div
+        className="w-full h-full transform-3d"
+        animate={{ rotateY: isFlipped ? "180deg" : "0deg" }}
+        transition={{ duration: 0.3 }}
       >
         <div className="absolute w-full h-full text-center backface-hidden rounded-4xl bg-card-bg border-8 border-yellow-border drop-shadow-2xl pt-10 flex flex-col items-center gap-6">
           <p className="font-comic font-bold text-3xl">Welk land is dit?</p>
@@ -39,8 +43,8 @@ const Card = ({ isFlipped, countryFront, countryBack }: CardProps) => {
             Hoofdstad: {countryBack.capital}
           </p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

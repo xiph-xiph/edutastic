@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import DonkeyBridge from "../components/DonkeyBridge";
 import { getDefaultCountries, sleep } from "../utils";
+import { LayoutGroup } from "motion/react";
 
 const Topo = () => {
   const countries = getDefaultCountries();
@@ -17,23 +18,18 @@ const Topo = () => {
   const nextCountry =
     countries[Math.min(countries.length, currentQuestion + 1)];
 
-  const handleCorrect = async () => {
-    setFlipIsInProgress(true);
-    setIsFlipped(false);
-    await sleep(290);
-    setFlipIsInProgress(false);
-    setDonkeyBridgeIsShown(false);
-    setCurrentQuestion(currentQuestion + 1);
-    setPoints(points + 1);
-  };
-
   const handleIncorrect = async () => {
     setFlipIsInProgress(true);
     setIsFlipped(false);
+    setDonkeyBridgeIsShown(false);
     await sleep(290);
     setFlipIsInProgress(false);
-    setDonkeyBridgeIsShown(false);
     setCurrentQuestion(currentQuestion + 1);
+  };
+
+  const handleCorrect = async () => {
+    await handleIncorrect();
+    setPoints(points + 1);
   };
 
   return (
@@ -47,18 +43,19 @@ const Topo = () => {
       </section>
       <main className="flex flex-col items-center gap-8">
         <div className="flex gap-4">
-          <Card
-            isFlipped={isFlipped}
-            countryFront={flipIsInProgress ? nextCountry : currentCountry}
-            countryBack={currentCountry}
-          />
-          {donkeyBridgeIsShown && (
-            <DonkeyBridge
+          <LayoutGroup>
+            <Card
               isFlipped={isFlipped}
               countryFront={flipIsInProgress ? nextCountry : currentCountry}
               countryBack={currentCountry}
             />
-          )}
+            <DonkeyBridge
+              isShown={donkeyBridgeIsShown}
+              isFlipped={isFlipped}
+              countryFront={flipIsInProgress ? nextCountry : currentCountry}
+              countryBack={currentCountry}
+            />
+          </LayoutGroup>
         </div>
 
         <Button
